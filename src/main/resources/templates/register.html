@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - IntView</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: center;
+            align-items: center;
+            justify-content: center;
+        }
+        .register-container {
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .register-header h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .form-floating {
+            margin-bottom: 1rem;
+        }
+        .btn-register {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+        }
+        .alert {
+            margin-bottom: 1rem;
+        }
+        .password-requirements {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-top: 0.25rem;
+        }
+        .form-control:focus {
+            border-color: #6366F1;
+            box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+        }
+        .btn-primary {
+            background: #6366F1;
+            border-color: #6366F1;
+        }
+        .btn-primary:hover {
+            background: #4F46E5;
+            border-color: #4F46E5;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+            z-index: 10;
+        }
+        .password-field {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="register-container">
+            <div class="register-header">
+                <h1>Create Account</h1>
+                <p class="text-muted">Join us today</p>
+            </div>
+            
+            <!-- Error message display -->
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+            <!-- Registration Form -->
+            <form th:action="@{/register}" method="post" th:object="${user}">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="firstName" name="firstName" 
+                           th:field="*{firstName}" placeholder="First Name" required
+                           th:classappend="${firstNameError != null} ? 'is-invalid' : ''">
+                    <label for="firstName">First Name</label>
+                    <div class="invalid-feedback" th:text="${firstNameError}"></div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="lastName" name="lastName" 
+                           th:field="*{lastName}" placeholder="Last Name" required
+                           th:classappend="${lastNameError != null} ? 'is-invalid' : ''">
+                    <label for="lastName">Last Name</label>
+                    <div class="invalid-feedback" th:text="${lastNameError}"></div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" name="email" 
+                           th:field="*{email}" placeholder="name@example.com" required
+                           th:classappend="${emailError != null} ? 'is-invalid' : ''">
+                    <label for="email">Email address</label>
+                    <div class="invalid-feedback" th:text="${emailError}"></div>
+                </div>
+
+                <div class="form-floating mb-3 password-field">
+                    <input type="password" class="form-control" id="password" name="password" 
+                           th:field="*{password}" placeholder="Password" required
+                           th:classappend="${passwordError != null} ? 'is-invalid' : ''">
+                    <label for="password">Password</label>
+                    <i class="bi bi-eye-slash password-toggle" onclick="togglePassword('password')"></i>
+                    <div class="password-requirements">
+                        Password must be at least 8 characters long and include uppercase, lowercase, number, and special character
+                    </div>
+                    <div class="invalid-feedback" th:text="${passwordError}"></div>
+                </div>
+
+                <div class="form-floating mb-3 password-field">
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" 
+                           placeholder="Confirm Password" required
+                           th:classappend="${confirmPasswordError != null} ? 'is-invalid' : ''">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <i class="bi bi-eye-slash password-toggle" onclick="togglePassword('confirmPassword')"></i>
+                    <div class="invalid-feedback" th:text="${confirmPasswordError}"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-register">Create Account</button>
+            </form>
+
+            <div class="text-center mt-3">
+                <p>Already have an account? <a href="/login" class="text-decoration-none">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleIcon = passwordField.nextElementSibling;
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            }
+        }
+    </script>
+</body>
+</html>

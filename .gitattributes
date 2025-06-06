@@ -1,0 +1,81 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Java source files
+*.java text diff=java
+*.gradle text
+*.properties text
+*.xml text
+*.yml text
+*.yaml text
+*.md text diff=markdown
+*.sql text
+
+# Documentation
+*.txt text
+*.adoc text
+*.asciidoc text
+*.md text diff=markdown
+
+# Scripts
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+/mvnw text eol=lf
+/mvnw.cmd text eol=crlf
+
+# Binary files
+*.class binary
+*.jar binary
+*.war binary
+*.ear binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.rar binary
+*.7z binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+
+# IDE specific files
+.idea/ binary
+*.iml binary
+*.iws binary
+*.ipr binary
+*.sublime-workspace binary
+*.sublime-project binary
+.vscode/ binary
+*.code-workspace binary
+
+# Build output
+target/ binary
+build/ binary
+out/ binary
+bin/ binary
+dist/ binary
+
+# Logs
+*.log binary
+logs/ binary
+
+# Temporary files
+*.tmp binary
+*.temp binary
+*.swp binary
+*~ binary
+.DS_Store binary
+Thumbs.db binary
